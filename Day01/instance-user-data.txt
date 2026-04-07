@@ -1,0 +1,10 @@
+#!/bin/bash
+yum update -y
+yum install -y httpd
+
+systemctl start httpd
+systemctl enable httpd
+
+echo "<h1>Server is up and running!</h1>" > /var/www/html/index.html
+echo "<p>Hello from EC2 Instance - $(hostname -f)</p>" >> /var/www/html/index.html
+echo "<p>Date: $(date)</p>" >> /var/www/html/index.html
