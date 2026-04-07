@@ -64,5 +64,13 @@
     -> Copy bucket website endpoint
     -> Open browser: Paste the endpoint (site link)
         http://gmaheswaranmca-resume.s3-website.ap-south-1.amazonaws.com
-
+14. Cleanup
+    -> S3 Side Menu Bar
+    -> In list of buckets, 
+    select the bucket 
+    -> Empty 
+    !the bucket is emptied
+    select the bucket
+    -> Delete
+    !the bucket is deleted
 ```
