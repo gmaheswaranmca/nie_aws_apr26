@@ -207,4 +207,13 @@ pm2 start "npm run dev -- --host 0.0.0.0" --name react-app
 
 # Check in browser
 http://13.206.102.95:3000/
+
+# To list the pm2 services
+pm2 list
+
+# To check logs of service
+pm2 logs server_name
+
+# To delete the service
+pm2 delete service_name
 ```
