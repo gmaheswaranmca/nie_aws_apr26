@@ -1,4 +1,5 @@
-Backend 
+# Backend 
+```
     express app -> mongo
     trainers {_id, name, skills}
     Operations:
@@ -11,10 +12,14 @@ Backend
         .env
             PORT=5000
             MONGO_URL=constr_cloud_mongo_db
+```
 
-Fronend
+# Fronend
+```
+```
 
-Cloud Mongo Setup:
+# Cloud Mongo Setup:
+```
     1. Login to cloud mongo using google account
     2. Side Menu Bart -> Clusters
         Build a Cluster
@@ -86,13 +91,17 @@ Cloud Mongo Setup:
             -> 
             mongodb+srv://mahesh:1234@cluster0.54ofwxy.mongodb.net/
         -> mongosh "mongodb+srv://mahesh:1234@cluster0.54ofwxy.mongodb.net/"
+```
 
-Architecture: (arch1)
+# Architecture: (arch1)
+```
     client          -> server        -> database
     ec2             -> ec2 (same)    -> cloud mongo
     trainer_server  -> trainer_server -> cloud mongo 
+```
 
-EC2 Setup in AWS:
+# EC2 Setup in AWS:
+```
 1. Search "EC2"
 2. Go inside "EC2" Work Area
 3. In side menu bar
@@ -138,8 +147,9 @@ We are going to connect to the "trainer_server" ec2 instance via ssh
 4. Copy the ssh connection string
    ssh -i "ec2_1_key.pem" ubuntu@ec2-13-206-102-95.ap-south-1.compute.amazonaws.com
 It should connect to the instance.
+```
 
-Settig up the application:
+# Settig up the application:
 ```bash
 sudo apt update
 sudo apt upgrade -y
