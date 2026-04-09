@@ -134,10 +134,83 @@ server-less -> server-ir -> server less
     zip -r client.zip dist/
     # to check client.zip is there
     ls 
+
+    exit the ssh
     # to download zip into ec2 mern_instance to local computer
     ssh -i "mern_key.pem" ubuntu@ec2-13-201-90-138.ap-south-1.compute.amazonaws.com
     =>
     scp source dest
     =>
-    scp -i "mern_key.pem" ubuntu@ec2-13-201-90-138.ap-south-1.compute.amazonaws.com:/home/ubuntu/mern-trainer-app/frontend/client.zip .
+    scp -i "mern_key.pem" ubuntu@ec2-13-201-90-138.ap-south-1.compute.amazonaws.com:/home/ubuntu/mern-trainer-app/frontend/client.zip 
+    
+    unzip the client.zip in downloads folder
+    Right client.zip in file explorer
+    -> Extract All
+    -> Check path
+    -> "Extract" cmd
+    -> Check client.zip is extracted 
+
+    Copy the dist/ dir connent to s3 bucket static site hosting.
+    1. Search "S3" in aws console
+    2. S3 Side Menu Bar 
+    3. General Purpose Bucket
+    4. Create Bucket (General purpose bucket)
+        - AWS Region: Asia Pacific (Mumbai) ap-south-1
+        - Bucket type: General purpose
+        - Bucket Name: gmaheswaranmca-mern-app
+        - Object Ownership : ACLs disabled (recommended)
+        - Block Public Access settings for this bucket
+            [untick] Block all public access
+            [tick] I acknowledge that the current settings might result in this bucket and the objects within becoming public.
+        - Create Bucket
+    5. Go inside the bucket "gmaheswaranmca-mern-app"
+        Objects -> Upload 
+        -> Add Files
+            Browse to "dist" dir
+            Select index and vite files
+        -> Add Folder
+            Browse to "dist" dir
+            Select assets dir
+        Now we have 
+            index
+            vite
+            two more files from assets dir
+        Tick all list added files and dir
+        -> Upload cmd
+        Close the Upload page
+ 6. Under Tab "Properties"
+    Static website hosting
+    -> Edit
+    -> Enable Static Web Hosting
+    -> Index document: index.html
+    -> error document: index.html
+    -> Save Changes
+ 7. Under Tab "Permissions"
+    Bucket Policy
+    -> Edit
+    -> Copy the policy rule
+    	{
+	"Version":"2012-10-17",
+	"Statement":[
+	{
+	"Sid":"PublicRead",
+	"Effect":"Allow",
+	"Principal":"*",
+	"Action":["s3:GetObject"],
+	"Resource":["arn:aws:s3:::gmaheswaranmca-resume/*"]
+	}
+	]
+	}
+
+    change 
+    "arn:aws:s3:::gmaheswaranmca-resume"
+    as current bucket name 
+    "arn:aws:s3:::gmaheswaranmca-mern-app"
+
+    -> Save Changes
+ 8. Copy Site link from Properties->Satic Site Hosting
+    http://gmaheswaranmca-mern-app.s3-website.ap-south-1.amazonaws.com
+    Check in browser
+    It should display the trainers list page
+    
 ```
