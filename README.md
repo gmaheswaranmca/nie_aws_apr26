@@ -13,4 +13,6 @@ Author: Maheswaran
            server-oriented     server-oriented    server less 
 5. load balancers -> ec2 servers (web site)
 6. auto scaling group ASG -> ec2 servers (web site)
+7. AWS RDS MySQL
+8. AWS DynamoDB
 ```
