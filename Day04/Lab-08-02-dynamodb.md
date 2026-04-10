@@ -205,3 +205,12 @@ Ask students to:
 4. Query one trainer
 5. Update skills
 6. Delete one trainer
+
+# Via node code
+```bash
+cd dynamodb_code
+npm init
+# accept all default values and complete node project creation
+
+npm install @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb
+```
