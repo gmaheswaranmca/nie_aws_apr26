@@ -1,0 +1,55 @@
+Overview for first three days: (what we have done so far)
+1. AWS Account 
+	- Console Account 
+2. EC2 
+3. SSH with EC2 
+4. Tried MERN FS App in local Computer 
+5. We deployed MERN FS 
+	backend and fronend apps in AWS EC2 
+	database mongo in Mongo Cloud 
+   Deployment of FS Apps 
+6. S3 - for FrontEnd / Static Site Deployment 
+7. Load Balancers for EC2 instances -
+	ALB 
+---
+EC2 Concepts or Related Services 
+	Load Balance via ASG 
+---
+Setting up the ASG: (Now Our learning)
+1. Security Groups 
+	"ec2-sg" 	HTTP SSH
+	"alb-sg"  HTTP 
+2. EC2 launch - one "ec2-1" 
+	ec2-sg + user data (our script)
+3. AMI - Image - Snapshot - "ami-1"
+	from the launched EC2 instance
+	= snapshot of "os + installed runtime and hosted files for app"
+4. Target Group : "tg-1"
+	Instance + Http + 80 + same vpc we will use for instances 
+	Health Check = /
+	No instances attached here 
+5. ALB  "alb-1"
+	Internet facing + Listern Http 80 + Same vpc + subnets 2 or 3 
+	alb-sg + tg-1 
+6. Launch Template "lt-1"
+	"ami-1" + t3.micro + ec2-sg + leave key pair 
+	+ user data (our script)
+7. ASG "asg-1"
+	"lt-1" + same vpc + subnets two or three + "alb+1 via tg-1" 
+	Configuration: 
+	Desired capacity → 2
+	Minimum → 1
+	Maximum → 4
+	! Wait till things are ready 
+8. Check in the internet 
+	Copy DNS from ALB 
+	http://dns-name 
+	
+Clean Up:
+1. Delete asg-1
+2. Delete lt-1 
+3. Delete applicationlb1
+4. Delete tg-1
+5. Deregister AMI with Associated Snapshot Deletion 
+6. Terminate (Delete) ec2-1 
+7. Delete Security Groups ec2-sg, alb-sg 
