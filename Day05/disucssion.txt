@@ -1,0 +1,93 @@
+IAM - Identity Access Management
+    -> Manage Users
+        - Create User
+        - Assign Role to User 
+        - Or Assign Privileges to User  
+    -> Manager Roles
+        - Role Creation 
+        - Assigning Privileges to Role 
+
+org -> one will be root users 
+    -> others need to access the aws services
+       then root user will create IAM user for others with sufficient privileges 
+
+Lab 09 - Creating IAM user and login as IAM user 
+         Clean up user 
+
+         user : sample_user
+         access: AmazonS3FullAccess, AmazonS3ReadOnlyAccess
+
+         login as sample_user
+         check other services we may manage (launch ec2 instance etc)
+
+         We may do only the S3 
+            Create 
+            Edit 
+            Read List of buckets 
+            Go inside the bucket 
+
+            -- only this much privileges we will have 
+----------------------------------------------------
+Steps
+1. Search in AWS Console 
+    "IAM" -> Select and Go Inside 
+    We are in IAM Work Area.
+
+    Side Menu Bar -> Users -> Create User 
+    We will be in user creation page.
+
+    User name: sample_user
+    [Tick] Provide user access to the AWS Management Console - optional
+    Password: Give special password and remember
+
+    [Untick] Users must create a new password at next sign-in - Recommended
+
+    Give "Next"
+
+    Set permissions
+        Permissions Options: (select) Attach policies directly
+        [Tick] AmazonS3FullAccess
+            ! Provides full access to all buckets via the AWS Management Console.
+        [Tick] AmazonS3ReadOnlyAccess
+            ! Provides read only access to all buckets via the AWS Management Console.
+
+    Give "Next" 
+        First review the page then
+    Give "Create User" 
+
+    ! User created successfully
+
+    Now the created user "sample_user" is in Users List page.
+
+    Signout from Root User. 
+
+    Signin To Console. 
+        IAM user sign in
+            Account ID or alias: 795359014602
+            IAM username: sample_user
+            Password: <Give Password> 
+
+    !Now logged into IAM User. 
+
+
+
+    Check to create s3 bucket and list s3 bucket 
+        - Allowed 
+
+        Tasks
+            - Try to create bucket 
+                It will allow 
+                Dont create 
+            - Go to List of General Purpoe Buckets 
+                It will display the buckets 
+                Note: Allowed.
+    
+    Try other services - to manage. 
+        - It will not be allowed. 
+
+        EC2 Instances List - Error we will get.
+----------------------------------------------------
+Cleaup of IAM User:
+    Login as Root User.
+        Goto IAM -> Users -> Delete sample_user
+----------------------------------------------------

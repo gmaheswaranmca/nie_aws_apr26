@@ -10,7 +10,7 @@ Author: Maheswaran
 3. user -> frotend (ec2)    -> backend (ec2)   -> mongodb (cloud)
            server-oriented     server-oriented    server less
 4. user -> frotend (s3)    -> backend (ec2)   -> mongodb (cloud)
-           server-oriented     server-oriented    server less 
+           server-less       server-oriented    server less 
 5. load balancers -> ec2 servers (web site)
 6. auto scaling group ASG -> ec2 servers (web site)
 7. AWS RDS MySQL
