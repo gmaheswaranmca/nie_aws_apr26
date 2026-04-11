@@ -250,4 +250,9 @@ CloudFront: "Create Distribution"
     It will take time. We have to wait 
     till it is completing. 
 ----------------------------------------------------
+Cleaup 
+    Disable and Delete Distribution, Wait till we will get the date and time at "Last Modified" attr 
+    Delete Distribution
+    Empty and Delete S3 Bucket gmaheswaranmca-resume-cdn
+
 

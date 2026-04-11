@@ -15,4 +15,8 @@ Author: Maheswaran
 6. auto scaling group ASG -> ec2 servers (web site)
 7. AWS RDS MySQL
 8. AWS DynamoDB
+9. IAM User and Access Resources and Services
+10. Lambda - serverless API End Points with Node JS
+    + API Gateway
+11. CloudFront (Edge Locations == CDN) based S3 static web site hosting
 ```
