@@ -91,3 +91,163 @@ Cleaup of IAM User:
     Login as Root User.
         Goto IAM -> Users -> Delete sample_user
 ----------------------------------------------------
+
+Recap:
+    IAM User Creation: 
+        username: sample_user
+        [tick] Management Console 
+        Set Password 
+        [untick] Sigin Password Reset 
+        Next 
+        
+        -> Set Permission 
+        Option: Attach policies directly
+        Permissions:  AmazonS3FullAccess, AmazonS3ReadOnlyAccess
+    Sign in as IAM User ie sample_user 
+        Check the S3 buckets list and bucket creation allowed.
+        Check the EC2 instances list and launch instance !Not Allowed.
+    Delete the user.
+
+----------------------------------------------------    
+
+Lab 10 - Lambda
+    what is lambda?
+        serverless compute service in aws 
+
+    architecture:
+        mern full stack app:
+            Server Oriented Backend App in Full Stack App:
+                frontend (S3) -> backend (EC2) -> database (mongo cloud)
+            can be migrated to serverless Backend App:
+                frontend (S3) -> backend (lambda) -> database (mongo cloud)
+
+Learning Lamba via Experiment:
+    JavaScript Lambda Function as API End Point: 
+    1. In the AWS Management Console 
+        Search "Lambda"
+        -> We will be in Lambda Work Area. 
+        -> Give "Create Function"
+        Option: Author From Scratch
+        Function name: hello_from_noserver
+        Runtime: nodejs 24
+        Architecture: x86_64 (by default)
+    2. Give "Create Function"
+    ! Wait it will get created the lambda function. 
+    3. After function created, we will have Web VSC.
+    There we have by default "hello" api end point:
+---
+export const handler = async (event) => {
+  // TODO implement
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('Hello from Lambda by Mahesh!'),
+  };
+  return response;
+};
+---
+    4. Deploy
+    5. Test 
+        !only for first time
+        Give "Create New Test Event" 
+        We are in the page of "Create new test event".
+        Event Name: hello_from_noserver_test
+        Invocation type: Synchronous (By default)
+        Event sharing settings: Private (by default)
+        Now "Save" the new test event 
+    6. Do the "Test" 
+      See the Output window in Web VSC:
+---
+Status: Succeeded
+Test Event Name: hello_from_noserver_test
+
+Response:
+{
+  "statusCode": 200,
+  "body": "\"Hello from Lambda by Maheswaran!\""
+}
+
+The area below shows the last 4 KB of the execution log.
+
+Function Logs:
+START RequestId: 484b961b-58bb-49c6-a121-7c54ed961f6e Version: $LATEST
+END RequestId: 484b961b-58bb-49c6-a121-7c54ed961f6e
+REPORT RequestId: 484b961b-58bb-49c6-a121-7c54ed961f6e	Duration: 9.63 ms	Billed Duration: 139 ms	Memory Size: 128 MB	Max Memory Used: 74 MB	Init Duration: 129.04 ms
+
+Request ID: 484b961b-58bb-49c6-a121-7c54ed961f6e
+----
+
+NOTE: Now we will expose our lambda function to be visible outside world.
+
+    7. Attach "API Gateway"
+        Give "Add Trigger" 
+        Select "API Gateway"
+        Option: Create new API 
+        API type: HTTP API
+        Security: Open
+
+        Give "Add" 
+
+        Now "API Gateway" is added.
+
+        Click "API Gateway" or Under Tab "Configuration"
+        Copy API End Point 
+            ie https://1cwhcoksqf.execute-api.ap-south-1.amazonaws.com/default/hello_from_noserver
+        Paste in browser and check 
+
+
+    8. Output:
+---
+"Hello from Lambda by Maheswaran!"
+---
+
+Cleanup after Lambda Experiment: 
+1. Delete API Gateway Trigger
+2. Delete Test Event 
+3. Delete Lambda Function 
+
+----------------------------------------------------
+Recap: 
+    lambda function named "hello_from_server" nodejs "sample code - small edited"
+    tested - test event created - Test Successful 
+    added trigger - API Gateway - our lambda fn became as API End Point
+    Under cofiguration: Copied DNS to check API End Point  
+    ---
+    Cleanup: Deleted trigger, test event, api gateway API, lambda function "hello_from_server"
+----------------------------------------------------
+
+Break: By 11:50 AM 
+
+----------------------------------------------------
+Architecture for our full stack:
+    frontend (S3) -> api gateway -> backend (lambda) -> database (mongo cloud)
+----------------------------------------------------
+
+Lab 11 - S3 + CloudFront based web site hosting
+    use cases (with CDN ie cache)
+    - portfolio site 
+    - frontend app (static site)
+
+    What we will do now:
+    Our portfolio web site, we will host in S3 without bucket policy 
+        named "gmaheswaranmca-resume-cdn"
+    Setup CloudFront to connect S3 static web site hosting.
+        -> CloudFront will write the policy inside S3 automatically.
+
+S3 bucket: "gmaheswaranmca-resume-cdn", with untick block public access.
+    add files of the web site. 
+    enable web site hosting. 
+    index document: index.html. error document: index.html.
+    bucket end point: http://gmaheswaranmca-resume-cdn.s3-website.ap-south-1.amazonaws.com
+CloudFront: "Create Distribution" 
+    -> Distribution Name: gmaheswaran-resume-cds-distr
+    -> Origin type: Amazon S3 
+    -> S3 Origin: gmaheswaranmca-resume-cdn.s3.ap-south-1.amazonaws.com (browsed)
+    "Create Distribution" 
+    Edit in General Tab (Settings)
+        -> Defult root object: index.html
+    -> Viewer Protocol (under Behaviour Tab): Redirect HTTP to HTTPS 
+    Note: Wait till it is deploying.
+    It will take time. We have to wait 
+    till it is completing. 
+----------------------------------------------------
+
